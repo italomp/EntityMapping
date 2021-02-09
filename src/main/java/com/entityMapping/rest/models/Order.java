@@ -14,12 +14,27 @@ import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+//order é uma palavra reservada pelo hibernate. tb_order, não.
+@Table(name = "TB_ORDER") 
 @Entity
-@Table(name = "TB_ORDER")
 public class Order {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	/**
+	 * '@JoinTable' cria uma tabela que representa o relacionamento entre
+	 *  as entidades.
+	 *  
+	 *  Essa anotação recebe três atributos: 
+	 *  'name' é o nome da tabela que representa o relacionamento,
+	 *  'joinColumns' é a fk da classe que estou(Order),
+	 *  'inverseJoinColumns' é a fk da outra classe (Product).
+	 *  
+	 *  '@JoinColumn' marca uma coluna como coluna de junção para uma 
+	 *  associação entre entidades ou coleção de elementos.
+	 */
 	@ManyToMany
 	@JoinTable(name = "TB_ORDER_PRODUCT",
 				joinColumns = @JoinColumn(name = "ORDER_ID"),
